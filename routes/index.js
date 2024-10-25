@@ -8,8 +8,8 @@ const TodoControllers = require('../TodoControllers/todosController')
 router.get('/', TodoControllers.list);
 
 
-// /* GET Edit page. */
-// router.get('/edit/:id', TodoControllers.update);
+/* GET Edit page. */
+router.get('/todo-edit/:id', TodoControllers.edit);
 
 // /* Post  */
 // router.post('/update/:id', TodoControllers.addlist);
