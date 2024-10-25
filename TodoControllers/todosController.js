@@ -1,7 +1,7 @@
 const Todos = require('../models/Todoslist')
 
-//list//
+//the list//
 module.exports.list = function(req,res){
-    res.render(/*HBS*/, 
+    res.render('./home', 
     { title: 'Todos' ,Todos : Todos});
 }
