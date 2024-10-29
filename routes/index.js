@@ -20,6 +20,6 @@ router.get('/add-todo', TodoControllers.addtodo);
 /*Post a todo*/
 router.post('/added-todo', TodoControllers.add);
 
-// router.get('/delete/:id', TodoControllers.delete);
+router.get('/delete/:id', TodoControllers.delete);
 
 module.exports = router;

@@ -16,9 +16,20 @@ module.exports.edit = function(req,res){
 module.exports.update = function(req,res){
     let id = req.params.id;
     let Todo = Todos.find(Todo => Todo.id == id)
-    Todos.title = req.body.title;
-    res.render('./update', 
-    {  id : id ,title: 'update' });
+    Todo.title = req.body.title;
+    res.render('./update', {  id : id ,title: 'update' });
+}
+//delete a Todo//
+module.exports.delete = function(req,res){
+    let id = req.params.id
+    let Todo =Todos.find(Todo => Todo.id == id)
+    let idx = Todos.indexOf(Todos.find(Todo => Todo.id == id))
+
+    //remove  the element at the index of idx
+    Todos.splice(idx,1)
+    
+    res.render('./deleted', 
+    {  id : id ,title: 'delete'});
 }
 
 module.exports.addtodo = function(req,res){
@@ -40,5 +51,4 @@ let Todo = {
     Todos.push(Todo)
     res.render('./added-Todo', 
     {  id : id ,title: 'added' });
-
 }
