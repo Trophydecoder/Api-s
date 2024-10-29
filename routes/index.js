@@ -11,14 +11,14 @@ router.get('/', TodoControllers.list);
 /* GET Edit page. */
 router.get('/todo-edit/:id', TodoControllers.edit);
 
-// /* Post  */
-// router.post('/update/:id', TodoControllers.addlist);
+// /* Post Update todo  */
+router.post('/update/:id', TodoControllers.update);
 
-/*get */
+/*get add todo  */
 router.get('/add-todo', TodoControllers.addtodo);
 
-/*Post */
-router.post('/add-todo', TodoControllers.add);
+/*Post a todo*/
+router.post('/added-todo', TodoControllers.add);
 
 // router.get('/delete/:id', TodoControllers.delete);
 

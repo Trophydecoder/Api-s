@@ -38,7 +38,7 @@ let Todo = {
     }
     //pushing new todo to TODOS//
     Todos.push(Todo)
-    res.render('./addedTodo', 
+    res.render('./added-Todo', 
     {  id : id ,title: 'added' });
 
 }
