@@ -28,12 +28,18 @@
         <h1>{{title}}</h1>
     </div>
     <div class="buttons">
-        <a href="/todo-edit/{{id}}" class="btn btn-info btn-sm"><i class="fa fa-edit" id="edit"></i></a>
+        <a href="/todo-edit/{{id}}" ><i class="fa fa-edit" id="edit"></i></a>
         <i class="fa fa-trash-o" id="delete"></i>
     </div>
     </div>
 </div>
           {{/each}}
+          
+          <div class="ContainerAdd">
+            <div class="Add">
+            <a href="/add-todo"><i class="fa fa-plus-circle" id="plus"></i>
+            </div>
+            </div>
 </body>
 </html>
 

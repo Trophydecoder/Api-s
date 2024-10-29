@@ -8,7 +8,7 @@ var Todos = [
     "id":2450,
     "title":"Study the bible",
     "description":"I keep eeling myself that i need to read the bible but lets start"
-    },
+    }
 
 ]
 

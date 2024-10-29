@@ -14,8 +14,11 @@ router.get('/todo-edit/:id', TodoControllers.edit);
 // /* Post  */
 // router.post('/update/:id', TodoControllers.addlist);
 
-// /*Post */
-// router.post('/add-list', TodoControllers.add);
+/*get */
+router.get('/add-todo', TodoControllers.addtodo);
+
+/*Post */
+router.post('/add-list', TodoControllers.add);
 
 // router.get('/delete/:id', TodoControllers.delete);
 
