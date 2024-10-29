@@ -13,13 +13,13 @@ module.exports.edit = function(req,res){
     {  id : id ,title: 'edit' ,Todo: Todo});
 }
 
-// module.exports.update = function(req,res){
-//     let id = req.params.id;
-//     let Todo = Todos.find(Todo => Todo.id == id)
-//     Todos.title = req.body.title;
-//     res.render('./update', 
-//     {  id : id ,title: 'update' });
-// }
+module.exports.update = function(req,res){
+    let id = req.params.id;
+    let Todo = Todos.find(Todo => Todo.id == id)
+    Todos.title = req.body.title;
+    res.render('./update', 
+    {  id : id ,title: 'update' });
+}
 
 module.exports.addtodo = function(req,res){
     res.render('./add-todo', {title: 'addtodo' });
@@ -31,12 +31,12 @@ module.exports.add = function(req,res){
     let max = 9999
     let id = Math.floor(Math.random() * (max-min) + min)
 
-//new provider object
+//new todo object
 let Todo = {
     id :id,
     title:req.body.title,
     }
-    //pushing new provider to PROVIDERS//
+    //pushing new todo to TODOS//
     Todos.push(Todo)
     res.render('./addedTodo', 
     {  id : id ,title: 'added' });

@@ -18,7 +18,7 @@ router.get('/todo-edit/:id', TodoControllers.edit);
 router.get('/add-todo', TodoControllers.addtodo);
 
 /*Post */
-router.post('/add-list', TodoControllers.add);
+router.post('/add-todo', TodoControllers.add);
 
 // router.get('/delete/:id', TodoControllers.delete);
 
