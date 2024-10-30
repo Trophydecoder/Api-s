@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const {Todo} = require('../models/todoslist')
+const {Todo} = require('../models/Todo')
 
 //connect to uri mongo//
 const uri ='mongodb://localhost:27017/Todos'
@@ -14,4 +14,4 @@ mongoose.connect(uri)
 
  
 
-    module.exports = Todo
+module.exports = Todo;

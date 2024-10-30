@@ -1,5 +1,5 @@
 var Todos = require("../models/Todoslist");
-const Todo = require("../mongodb/mongo");
+const Todo = require("../Mongodb/mongo");
 const {ObjectId} = require('mongodb')
 //CRUD OPERATIONS(CREATE(post),  READ(get),  UPDATE(put),  DELETE(delete))//
 
@@ -11,8 +11,8 @@ function isEmptylist(obj) {
 
   //this is a function to handle all the Errors
 function handleError(res, error) {
-    res.status(200);
-    res.send("Somnething is wrong .\n" + error);
+    res.status(400);
+    res.send("Something is wrong .\n" + error);
   }
 
   //based on CRUD we start with//
@@ -38,4 +38,21 @@ module.exports.create = function (req, res) {
     Todos.push(Todo);
     res.status(200);
     res.send(Todo);
+  };
+//Get all Lists
+  module.exports.readAll = function (req, res) {
+    try {
+      Todos.find()
+        .then((result) => {
+          if (isEmptylist(result)) {
+            res.status(404);
+            res.send("List is empty");
+          }
+          res.status(200);
+          res.send(result);
+        })
+        .catch((error) => handleError(res, error));
+    } catch (error) {
+      handleError(res, error);
+    }
   };
