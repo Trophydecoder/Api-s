@@ -4,9 +4,11 @@ const maincontroller = require('../Controllers/maincontroller')
 
 /*HTTP Verbs*/
 
-// /* GET home page. */
-// router.get('/',maincontroller.list);
+/* GET home page. */
+router.get('/Todos',maincontroller.readAll);
 
+/*Post a todo*/
+router.post('/Todos',maincontroller.create);
 
 // /* GET Edit page. */
 // router.get('/todo-edit/:id',maincontroller.edit);
@@ -17,8 +19,7 @@ const maincontroller = require('../Controllers/maincontroller')
 // /*get add todo  */
 // router.get('/add-todo',maincontroller.addtodo);
 
-/*Post a todo*/
-router.post('/Todos',maincontroller.create);
+
 
 // router.get('/delete/:id',maincontroller.deleteOne);
 
