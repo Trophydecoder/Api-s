@@ -20,9 +20,6 @@ return Todos.find(Todo => Todo.id==id)
 }
  
 
-
-
-
 //Get all Lists
 module.exports.readAll = function (req, res) {
   Todo.find()
@@ -38,3 +35,4 @@ module.exports.readAll = function (req, res) {
       res.status(500).send("Internal Server Error");
     });
 };
+
