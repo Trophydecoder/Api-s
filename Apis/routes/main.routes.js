@@ -8,7 +8,7 @@ const maincontroller = require('../Controllers/maincontroller')
 router.get('/todos',maincontroller.readAll);
 
 /*Post a todo*/
-router.post('/todos',maincontroller.create);
+// router.post('/todos',maincontroller.create);
 
 // /* GET Edit page. */
 // router.get('/todo-edit/:id',maincontroller.edit);

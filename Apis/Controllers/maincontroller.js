@@ -1,6 +1,6 @@
-var Todos = require("../models/Todoslist");
-const Todo = require("../Mongodb/mongo");
-const {ObjectId} = require('mongodb')
+var Todos = require('../models/Todoslist');
+const Todo = require('../Mongodb/mongo');
+const { ObjectId } = require('mongodb');
 //CRUD OPERATIONS(CREATE(post),  READ(get),  UPDATE(put),  DELETE(delete))//
 
 
@@ -40,19 +40,18 @@ module.exports.create = function (req, res) {
     res.send(Todo);
   };
 //Get all Lists
-  module.exports.readAll = function (req, res) {
-    try {
-      Todos.find()
-        .then((result) => {
-          if (isEmptylist(result)) {
-            res.status(404);
-            res.send("List is empty");
-          }
-          res.status(200);
-          res.send(result);
-        })
-        .catch((error) => handleError(res, error));
-    } catch (error) {
-      handleError(res, error);
-    }
-  };
+
+module.exports.readAll = function (req, res) {
+  Todo.find()
+    .then((result) => {
+      if (isEmptylist(result)) {
+        res.status(404).send("List is empty");
+      } else {
+        res.status(200).send(result);
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("Internal Server Error");
+    });
+};

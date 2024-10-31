@@ -1,11 +1,7 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
-//definining a schema
-const Schema = mongoose.Schema
+const TodoSchema = new mongoose.Schema({
+  title: { type: String, required: true }
+});
 
-//Todos(top level)(parent-document)
-const TodoSchema = new Schema({
-    "title": {type :String, required:true},
-})
-
-module.exports = {TodoSchema}
+module.exports = mongoose.model('Todo', TodoSchema);
