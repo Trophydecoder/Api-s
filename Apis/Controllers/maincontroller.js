@@ -14,33 +14,16 @@ function handleError(res, error) {
     res.status(400);
     res.send("Something is wrong .\n" + error);
   }
+// //function to check if there ID we generated doesnt exist//
+function  existTodo(id){
+return Todos.find(Todo => Todo.id==id)
+}
+ 
 
-  //based on CRUD we start with//
-  //CREATE//
-  //POST
-//url:/api/providers
-module.exports.create = function (req, res) {
-    ///create random ID//
-    if (isEmptylist(Todos)) {
-      Todos = [];
-    }
-    var id = req.body.id;
-    if (existTodo(id)) {
-      res.status(400);
-      res.send("Duplicate ID is not allowed");
-      id = getUniqueID(); //getNewID//
-    }
-  
-    var Todo = req.body; //get new Todo
-    Todo.id = id;
-  
-    //pushing new todo to TODOS//
-    Todos.push(Todo);
-    res.status(200);
-    res.send(Todo);
-  };
+
+
+
 //Get all Lists
-
 module.exports.readAll = function (req, res) {
   Todo.find()
     .then((result) => {
