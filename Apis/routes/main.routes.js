@@ -5,8 +5,8 @@ const maincontroller = require('../Controllers/maincontroller')
 // /*HTTP Verbs*/
 //HTTP VERBS : POST,GET,PUT,DELETE//
 
-// //post todos//
-// router.post('/todos',mainController.create)
+//post todos//
+router.post('/todos',maincontroller.create)
 
 /* GET home page. */
 router.get('/todos',maincontroller.readAll);
