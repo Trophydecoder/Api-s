@@ -35,4 +35,23 @@ module.exports.readAll = function (req, res) {
       res.status(500).send("Internal Server Error");
     });
 };
+module.exports.readOne = function (req, res) {
+
+  try{
+    let id = new ObjectId(req.params.id);
+    Todo.find({'_id':id})
+      .then(result =>{
+          if (isEmptylist(result)) {
+              res.status(404);
+              res.send("List is empty");
+            }
+            res.status(200);
+            res.send(result);
+      })
+      .catch((error) => handleError(res, error));
+  } 
+  catch (error) {
+    handleError(res, error);
+  }
+}
 
