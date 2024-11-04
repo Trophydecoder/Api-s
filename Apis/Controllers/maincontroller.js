@@ -19,7 +19,7 @@ function  existTodo(id){
 return Todos.find(Todo => Todo.id==id)
 }
  
-
+//locasthost300/api/todos//
 //Get all Lists
 module.exports.readAll = function (req, res) {
   Todo.find()
@@ -35,6 +35,9 @@ module.exports.readAll = function (req, res) {
       res.status(500).send("Internal Server Error");
     });
 };
+
+//locasthost300/api/todos/id//
+//getOne inside of list//
 module.exports.readOne = function (req, res) {
     let id = new ObjectId(req.params.id);
     Todo.find({'_id':id})
@@ -51,3 +54,14 @@ module.exports.readOne = function (req, res) {
             });
   };
 
+//   //put//
+// //localhost/api/Todos/:id(123)
+// module.exports.update = function (req, res) {
+//   if (isEmptylist(Todos)) {
+//     res.status(404).send("List is empty,We cannot update");
+//   }
+//   let id = req.params.id;
+//   let Todo = Todos.find((Todo) => Todo.id == id);
+//   Todo.title = req.body.title;
+//   res.status(200).send(Todo);
+// };
