@@ -23,6 +23,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api',ApiRouter)
 
+ //to be deleted//
+const connection = require('./Apis/mongodb/connnection')
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
