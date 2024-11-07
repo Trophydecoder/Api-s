@@ -59,7 +59,6 @@ module.exports.readOne = function (req, res) {
               res.status(404).send("Cannot Read, Todo List is empty");
             }
           
-          //  let provider = providers.find((provider) => provider.id == id)
             res.status(200).send(result);
       })
       .catch((error) => handleError(res, error));
@@ -70,13 +69,21 @@ module.exports.readOne = function (req, res) {
 }
 
 module.exports.update = function (req, res) {
-  if (isEmptylist(Todos)) {
-    res.status(404).send("Todo List Is Empty,Cannot Update");
+ 
+  try {
+    let id = new ObjectId(req.params.id);
+    let todo = req.body;
+    Todo.findOneAndUpdate({'_id':id},todo,{new:true})
+    .then (result => {
+      if (isEmptylist(result)) {
+        res.status(404).send("Todo List Is Empty,Cannot Update");
+      }
+       res.status(200).send(result);
+    })
+     .catch((error) => handleError(res, error));
+  } catch (error) {
+    handleError(res, error);
   }
-  let id = req.params.id;
-  let Todo = Todos.find((Todo) => Todo.id == id);
-  Todo.title = req.body.title;
-  res.status(200).send(Todo);
 };
 
 module.exports.deleteOne = function (req, res) {
