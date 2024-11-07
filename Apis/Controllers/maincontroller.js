@@ -39,29 +39,32 @@ module.exports.create = function (req,res){
 
   var Todo = req.body; //get new Todo
   Todo.id = id;
-
-//new todo object
-// let Todo = {
-//     id :id,
-//     title:req.body.title
-//     }
     //pushing new todo to TODOS//
     Todos.push(Todo)
     res.status(200).send(Todo)
 }
 
 module.exports.readAll = function(req,res){
+  if(isEmptylist(Todos)){
+    res.status(404).send("Todo List is Empty")
+  }
   res.status(200).send(Todos)
 }
 
 
 module.exports.readOne= function(req,res){
+   if(isEmptylist(Todos)){
+    res.status(404).send("Todo List is Empty")
+  }
   let id = req.params.id
   let Todo = Todos.find(Todo => Todo.id == id)
   res.status(200).send(Todo);
 }
 
 module.exports.update = function(req,res){
+  if(isEmptylist(Todos)){
+    res.status(404).send("Todo List Is Empty,Cannot Update")
+  }
   let id = req.params.id;
   let Todo = Todos.find(Todo => Todo.id == id)
   Todo.title = req.body.title;
@@ -69,6 +72,9 @@ module.exports.update = function(req,res){
 }
 
 module.exports.deleteOne = function(req,res){
+  if(isEmptylist(Todos)){
+    res.status(404).send("Todo List Is Empty,Cannot Delete")
+  }
   let id = req.params.id
   let Todo =Todos.find(Todo => Todo.id == id)
   let index = Todos.indexOf(Todo)
@@ -78,3 +84,11 @@ module.exports.deleteOne = function(req,res){
   res.status(200);
   res.send(Todo);
 }
+
+module.exports.deleteAll = function (req, res) {
+  if (isEmptylist(Todos)) {
+    res.status(404).send("Todo List is Empty Cannot Delete");
+  }
+  Todos = [];
+  res.status(200).send("all Todos deleted");
+};
