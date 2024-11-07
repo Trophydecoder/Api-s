@@ -1,4 +1,6 @@
-var Todos = require('../models/Todoslist');
+var Todos = require("../models/Todoslist");
+const Todo = require("../mongodb/connnection");
+const {ObjectId} = require('mongodb')
 
 //CRUD OPERATIONS(CREATE(post),  READ(get),  UPDATE(put),  DELETE(delete))//
 
@@ -10,80 +12,86 @@ function isEmptylist(obj) {
 }
 
 //function to check if there ID we generated doesnt exist//
-function  existTodo(id){
-return Todos.find(Todo=> Todo.id==id)
-
+function existTodo(id) {
+  return Todos.find((Todo) => Todo.id == id);
 }
-// generateUniqueID function//
-function getUniqueID(Todos){
-     ///create random ID//
-     let min = 1000
-     let max = 9999
-     do{
-     var id = Math.floor(Math.random() * (max-min) + min)
-     }while (existTodo(id)) ;
-     return id;
+function handleError(res, error) {
+  res.status(200);
+  res.send("Somnething is wrong .\n" + error);
 }
 
-module.exports.create = function (req,res){
-  //create a random iD//
+module.exports.create = function (req, res) {
+
+var todo = req.body; //get new Todo
+
+try {
+  Todo.create(todo)
+  .then(result => {
+    res.status(201).send(result)
+  })
+.catch((error) => handleError(res, error));
+} 
+catch (error) {
+  handleError(res, error);
+}
+}
+module.exports.readAll = function (req, res) {
+  try {
+    Todo.find()
+      .then((result) => {
+        if (isEmptylist(result)) {
+          res.status(404).send("Cant read ,Todo List is empty");
+        }
+        res.status(200).send(result);
+      })
+      .catch((error) => handleError(res, error));
+  } catch (error) {
+    handleError(res, error);
+  }
+};
+
+module.exports.readOne = function (req, res) {
+  try{
+    let id = new ObjectId(req.params.id);
+    Todo.find({'_id':id})
+      .then(result =>{
+          if (isEmptylist(result)) {
+              res.status(404).send("Cannot Read, Todo List is empty");
+            }
+          
+          //  let provider = providers.find((provider) => provider.id == id)
+            res.status(200).send(result);
+      })
+      .catch((error) => handleError(res, error));
+  } 
+  catch (error) {
+    handleError(res, error);
+  }
+}
+
+module.exports.update = function (req, res) {
   if (isEmptylist(Todos)) {
-    providers = [];
-  }
-
-  var id = req.body.id;
-  if (existTodo(id)) {
-    res.status(400).send("Duplicate ID is not allowed");
-    id = getUniqueID(); //getNewID//
-  }
-
-  var Todo = req.body; //get new Todo
-  Todo.id = id;
-    //pushing new todo to TODOS//
-    Todos.push(Todo)
-    res.status(200).send(Todo)
-}
-
-module.exports.readAll = function(req,res){
-  if(isEmptylist(Todos)){
-    res.status(404).send("Todo List is Empty")
-  }
-  res.status(200).send(Todos)
-}
-
-
-module.exports.readOne= function(req,res){
-   if(isEmptylist(Todos)){
-    res.status(404).send("Todo List is Empty")
-  }
-  let id = req.params.id
-  let Todo = Todos.find(Todo => Todo.id == id)
-  res.status(200).send(Todo);
-}
-
-module.exports.update = function(req,res){
-  if(isEmptylist(Todos)){
-    res.status(404).send("Todo List Is Empty,Cannot Update")
+    res.status(404).send("Todo List Is Empty,Cannot Update");
   }
   let id = req.params.id;
-  let Todo = Todos.find(Todo => Todo.id == id)
+  let Todo = Todos.find((Todo) => Todo.id == id);
   Todo.title = req.body.title;
   res.status(200).send(Todo);
-}
+};
 
-module.exports.deleteOne = function(req,res){
-  if(isEmptylist(Todos)){
-    res.status(404).send("Todo List Is Empty,Cannot Delete")
+module.exports.deleteOne = function (req, res) {
+  if (isEmptylist(Todos)) {
+    res.status(404).send("Todo List Is Empty,Cannot Delete");
   }
-  let id = req.params.id
-  let Todo =Todos.find(Todo => Todo.id == id)
-  let index = Todos.indexOf(Todo)
+  let id = req.params.id;
+  let Todo = Todos.find((Todo) => Todo.id == id);
+  let index = Todos.indexOf(Todo);
 
   //remove  the element at the index of idx
-  Todos.splice(index,1)
+  Todos.splice(index, 1);
   res.status(200);
   res.send(Todo);
-}
+};
 
 module.exports.deleteAll = function (req, res) {
   if (isEmptylist(Todos)) {
