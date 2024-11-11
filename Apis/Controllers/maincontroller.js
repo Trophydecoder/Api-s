@@ -33,40 +33,32 @@ module.exports.create = function (req, res) {
     handleError(res, error);
   }
 };
+
 module.exports.readAll = function (req, res) {
-  try {
-    Todo.find()
-      .then((result) => {
-        if (isEmptylist(result)) {
-          res.status(404).send("Cant read ,Todo List is empty");
-        }
-        res.status(200).send(result);
-      })
-      .catch((error) => handleError(res, error));
-  } catch (error) {
-    handleError(res, error);
-  }
+  Todo.find()
+    .then((result) => {
+      if (isEmptylist(result)) {
+        return res.status(404).send("Can't read, Todo List is empty");
+      }
+      return res.status(200).send(result);
+    })
+    .catch((error) => handleError(res, error));
 };
 
 module.exports.readOne = function (req, res) {
-  try {
     let id = new ObjectId(req.params.id);
     Todo.find({ _id: id })
       .then((result) => {
         if (isEmptylist(result)) {
-          res.status(404).send("Cannot Read, Todo List is empty");
+          return res.status(400).send("Cannot Read, Todo List is empty");
         }
 
-        res.status(200).send(result);
+        return res.status(200).send(result);
       })
       .catch((error) => handleError(res, error));
-  } catch (error) {
-    handleError(res, error);
   }
-};
 
 module.exports.update = function (req, res) {
-  try {
     let id = new ObjectId(req.params.id);
     let todo = req.body;
     Todo.findOneAndUpdate({ _id: id }, todo, { new: true })
@@ -77,13 +69,10 @@ module.exports.update = function (req, res) {
         res.status(200).send(result);
       })
       .catch((error) => handleError(res, error));
-  } catch (error) {
-    handleError(res, error);
-  }
 };
 
 module.exports.deleteOne = function (req, res) {
-  try {
+
     let id = new ObjectId(req.params.id);
     Todo.findOneAndDelete({ _id: id })
       .then((result) => {
@@ -94,13 +83,9 @@ module.exports.deleteOne = function (req, res) {
         res.send(result);
       })
       .catch((error) => handleError(res, error));
-  } catch (error) {
-    handleError(res, error);
-  }
 };
 
 module.exports.deleteAll = function (req, res) {
-  try {
     Todo.deleteMany({})
       .then((result) => {
         if (result.deletedCount === 0) {
@@ -109,7 +94,4 @@ module.exports.deleteAll = function (req, res) {
         res.status(200).send("all Todos deleted ]n" + result);
       })
       .catch((error) => handleError(res, error));
-  } catch (error) {
-    handleError(res, error);
-  }
 };
