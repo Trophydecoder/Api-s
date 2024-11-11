@@ -24,4 +24,14 @@ router.delete('/todos/:id',maincontroller.deleteOne);
 /*deleteALL*/
 router.delete('/todos',maincontroller.deleteAll);
 
+
+//no matching api endpoints//
+router.get('/*',notFound);
+router.put('/*',notFound);
+router.post('/*',notFound);
+router.delete('/*',notFound);
+
+function notFound(req,res){
+   res.status(400).send("Not valid endpoint")
+}
 module.exports = router;
