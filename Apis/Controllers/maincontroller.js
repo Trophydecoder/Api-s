@@ -64,23 +64,21 @@ module.exports.update = function (req, res) {
     Todo.findOneAndUpdate({ _id: id }, todo, { new: true })
       .then((result) => {
         if (isEmptylist(result)) {
-          res.status(404).send("Todo List Is Empty,Cannot Update");
+         return res.status(404).send("Todo List Is Empty,Cannot Update");
         }
-        res.status(200).send(result);
+        return res.status(200).send(result);
       })
       .catch((error) => handleError(res, error));
 };
 
 module.exports.deleteOne = function (req, res) {
-
     let id = new ObjectId(req.params.id);
     Todo.findOneAndDelete({ _id: id })
       .then((result) => {
         if (isEmptylist(result)) {
-          res.status(404).send("Todo List Is Empty,Cannot Delete");
+          return  res.status(404).send("Todo List Is Empty,Cannot Delete");
         }
-        res.status(200);
-        res.send(result);
+        return res.status(200).send(result);
       })
       .catch((error) => handleError(res, error));
 };
@@ -89,9 +87,9 @@ module.exports.deleteAll = function (req, res) {
     Todo.deleteMany({})
       .then((result) => {
         if (result.deletedCount === 0) {
-          res.status(404).send("Todo List is Empty Cannot Delete");
+          return res.status(404).send("Todo List is Empty Cannot Delete");
         }
-        res.status(200).send("all Todos deleted ]n" + result);
+        return res.status(200).send("all Todos deleted ]n" + result);
       })
       .catch((error) => handleError(res, error));
 };
